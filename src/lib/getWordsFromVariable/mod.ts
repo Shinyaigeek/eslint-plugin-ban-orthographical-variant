@@ -32,7 +32,7 @@ export const getWordsFromVariable: (variable: string) => string[] = function (
       words.push(currentWord);
     }
     return words;
-  }, [] as string[]);
+  }, [] as string[]).map(word => word.toLowerCase());
 };
 
 const isUppercase: (char: string) => boolean = function (char) {
