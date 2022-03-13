@@ -1,5 +1,6 @@
 import { TSESLint } from "@typescript-eslint/utils";
 import { getVariableNameFromBindingName } from "../lib/getVariableNameFromBindingName/mod";
+import { getWordsFromVariable } from "../lib/getWordsFromVariable/mod";
 
 type Options = [
   {
@@ -36,6 +37,19 @@ export const banOrthographicalVariant: TSESLint.RuleModule<
           const dictionary = require(dictionaryPath);
           if (dictionary[variableName]) {
             console.log("HEY");
+          }
+        }
+      },
+      FunctionDeclaration(node) {
+        if (node.id) {
+          const variableName = node.id.name;
+          const dictionaryPath = options[0].dictionaryPath;
+          const dictionary = require(dictionaryPath);
+          const words = getWordsFromVariable(variableName);
+          for (const word of words) {
+            if (dictionary[word]) {
+              console.log("HEY");
+            }
           }
         }
       },
