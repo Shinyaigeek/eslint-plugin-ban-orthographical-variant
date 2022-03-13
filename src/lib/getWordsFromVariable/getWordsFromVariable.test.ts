@@ -24,5 +24,9 @@ describe("getWordsFromVariable", () => {
       "WITH",
       "Uppercase",
     ]);
-  })
+  });
+
+  test("handle $", () => {
+    expect(getWordsFromVariable("ITEMS$CAR")).toEqual(["Items", "Car"]);
+  });
 });
