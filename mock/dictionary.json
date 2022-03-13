@@ -1,0 +1,11 @@
+{
+  "Audio": {
+    "synonyms": ["Speech", "Music"]
+  },
+  "Video": {
+    "synonyms": ["Movie", "TV Show", "Game", "Animation", "Documentary"]
+  },
+  "Image": {
+    "synonyms": ["Photo", "Drawing", "Painting", "Photograph", "Illustration"]
+  }
+}

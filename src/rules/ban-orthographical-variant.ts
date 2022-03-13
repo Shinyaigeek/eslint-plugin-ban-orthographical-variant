@@ -6,7 +6,7 @@ import { getVariableNameFromBindingName } from "../lib/getVariableNameFromBindin
 import { getVariableNameFromRestElement } from "../lib/getVariableNameFromRestElement/mod";
 import { lintWithVariable } from "../lib/lintWithVariables/mod";
 
-type Options = [
+export type Options = [
   {
     dictionaryPath?: string;
   }
@@ -27,10 +27,19 @@ export const banOrthographicalVariant: TSESLint.RuleModule<
       banOrthographicalVariant:
         "{{originWord}} is an orthographical variant of {{synomsysWord}}.",
     },
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          dictionaryPath: {
+            type: "string",
+          },
+        },
+      },
+    ],
   },
 
-  create: ({ parserServices, report, getSourceCode, options }) => {
+  create: ({ report, options }) => {
     return {
       VariableDeclarator(node) {
         const identifier = node.id;

@@ -8,17 +8,15 @@ export const lintWithVariable: (
 ) => void = function (variable, dictionary, report) {
   const words = getWordsFromVariable(variable);
   for (const word of words) {
-    if (dictionary[word]) {
-      for (const [originWord, dict] of Object.entries(dictionary)) {
-        for (const syn of dict.synonyms) {
-          if (typeof syn === "string") {
-            if (syn === word) {
-              report(originWord, word);
-            }
-          } else {
-            if (syn.test(word)) {
-              report(originWord, word);
-            }
+    for (const [originWord, dict] of Object.entries(dictionary)) {
+      for (const syn of dict.synonyms) {
+        if (typeof syn === "string") {
+          if (syn === word) {
+            report(originWord, word);
+          }
+        } else {
+          if (syn.test(word)) {
+            report(originWord, word);
           }
         }
       }
