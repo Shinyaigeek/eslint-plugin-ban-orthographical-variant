@@ -3,36 +3,34 @@ export const getWordsFromVariable: (variable: string) => string[] = function (
 ) {
   let currentWord = "";
   let previousChar = "";
-  return variable.split("").reduce((words, char) => {
-
+  return variable.split("").reduce((words, char, idx, arr) => {
     if (char === "_") {
-        words.push(currentWord);
-        currentWord = "";
-        previousChar = "";
-        return words;
+      words.push(currentWord);
+      currentWord = "";
+      previousChar = "";
+      return words;
     }
 
     if (isUppercase(previousChar)) {
-      if (!isUppercase(char)) {
-        words.push(currentWord);
-        currentWord = "";
-      } else {
-        currentWord += char;
-      }
+      currentWord += char;
       previousChar = char;
       return words;
     }
 
     if (isUppercase(char)) {
-        if (currentWord) {
-            words.push(currentWord);
-        }
-        currentWord = char;
-        return words;
+      if (currentWord) {
+        words.push(currentWord);
+      }
+      currentWord = char;
+      previousChar = char;
+      return words;
     }
 
     previousChar = char;
     currentWord += char;
+    if (idx === arr.length - 1) {
+      words.push(currentWord);
+    }
     return words;
   }, [] as string[]);
 };
