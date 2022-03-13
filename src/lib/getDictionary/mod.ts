@@ -1,7 +1,6 @@
-interface Dictionary {
+export interface Dictionary {
   [word: string]: {
-    synonyms: string[];
-    regexp?: RegExp;
+    synonyms: (string | RegExp)[];
     description?: string;
   };
 }
