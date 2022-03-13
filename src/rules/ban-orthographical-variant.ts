@@ -1,5 +1,7 @@
 import { TSESLint } from "@typescript-eslint/utils";
+import { getVariableNameFromAssignmentPattern } from "../lib/getVariableNameFromAssignmentPattern/mod";
 import { getVariableNameFromBindingName } from "../lib/getVariableNameFromBindingName/mod";
+import { getVariableNameFromRestElement } from "../lib/getVariableNameFromRestElement/mod";
 import { getWordsFromVariable } from "../lib/getWordsFromVariable/mod";
 
 type Options = [
@@ -78,6 +80,95 @@ export const banOrthographicalVariant: TSESLint.RuleModule<
           for (const word of words) {
             if (dictionary[word]) {
               console.log("HEY");
+            }
+          }
+        }
+      },
+      PropertyDefinition(node) {
+        const variable = node.key;
+        if (variable.type === "Identifier") {
+          const variableName = variable.name;
+          const dictionaryPath = options[0].dictionaryPath;
+          const dictionary = require(dictionaryPath);
+          const words = getWordsFromVariable(variableName);
+          for (const word of words) {
+            if (dictionary[word]) {
+              console.log("HEY");
+            }
+          }
+          return;
+        }
+        if (variable.type === "Literal") {
+          const variableName = variable.value?.toString();
+          const dictionaryPath = options[0].dictionaryPath;
+          const dictionary = require(dictionaryPath);
+          const words = getWordsFromVariable(variableName || "");
+          for (const word of words) {
+            if (dictionary[word]) {
+              console.log("HEY");
+            }
+          }
+          return;
+        }
+
+        // * if expression, this is computed props. computed props is out of range
+      },
+      MethodDefinition(node) {
+        const variable = node.key;
+        if (variable.type === "Identifier") {
+          const variableName = variable.name;
+          const dictionaryPath = options[0].dictionaryPath;
+          const dictionary = require(dictionaryPath);
+          const words = getWordsFromVariable(variableName);
+          for (const word of words) {
+            if (dictionary[word]) {
+              console.log("HEY");
+            }
+          }
+          return;
+        }
+        if (variable.type === "Literal") {
+          const variableName = variable.value?.toString();
+          const dictionaryPath = options[0].dictionaryPath;
+          const dictionary = require(dictionaryPath);
+          const words = getWordsFromVariable(variableName || "");
+          for (const word of words) {
+            if (dictionary[word]) {
+              console.log("HEY");
+            }
+          }
+          return;
+        }
+
+        // * if expression, this is computed props. computed props is out of range
+      },
+      TSParameterProperty(node) {
+        const parameter = node.parameter;
+        const variables = (() => {
+          if (
+            parameter.type === "Identifier" ||
+            parameter.type === "ArrayPattern" ||
+            parameter.type === "ObjectPattern"
+          ) {
+            return getVariableNameFromBindingName(parameter);
+          }
+          if (parameter.type === "AssignmentPattern") {
+            return getVariableNameFromAssignmentPattern(parameter);
+          }
+          if (parameter.type === "RestElement") {
+            return getVariableNameFromRestElement(parameter);
+          }
+          const _never: never = parameter;
+        })();
+        if (variables) {
+          const dictionaryPath = options[0].dictionaryPath;
+          const dictionary = require(dictionaryPath);
+          for (const variable of variables) {
+            const words = getWordsFromVariable(variable);
+            for (const word of words) {
+              if (dictionary[word]) {
+                console.log("HEY");
+              }
             }
           }
         }
