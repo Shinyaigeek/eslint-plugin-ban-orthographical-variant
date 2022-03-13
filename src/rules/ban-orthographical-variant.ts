@@ -1,4 +1,5 @@
-import { AST_NODE_TYPES, TSESLint } from "@typescript-eslint/utils";
+import { TSESLint } from "@typescript-eslint/utils";
+import { getVariableNameFromBindingName } from "../lib/getVariableNameFromBindingName/mod";
 
 type Options = [
   {
@@ -24,6 +25,20 @@ export const banOrthographicalVariant: TSESLint.RuleModule<
   },
 
   create: ({ parserServices, report, getSourceCode, options }) => {
-    return {};
+    return {
+      VariableDeclarator(node) {
+        const identifier = node.id;
+
+        const variableNames = getVariableNameFromBindingName(identifier);
+
+        for (const variableName of variableNames) {
+          const dictionaryPath = options[0].dictionaryPath;
+          const dictionary = require(dictionaryPath);
+          if (dictionary[variableName]) {
+            console.log("HEY");
+          }
+        }
+      },
+    };
   },
 };
