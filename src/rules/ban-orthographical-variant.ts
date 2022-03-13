@@ -53,6 +53,68 @@ export const banOrthographicalVariant: TSESLint.RuleModule<
           }
         }
       },
+      TSTypeAliasDeclaration(node) {
+        const variableName = node.id.name;
+        const dictionaryPath = options[0].dictionaryPath;
+        const dictionary = require(dictionaryPath);
+        const words = getWordsFromVariable(variableName);
+        for (const word of words) {
+          if (dictionary[word]) {
+            console.log("HEY");
+          }
+        }
+      },
+      TSInterfaceDeclaration(node) {
+        const variableName = node.id.name;
+        const dictionaryPath = options[0].dictionaryPath;
+        const dictionary = require(dictionaryPath);
+        const words = getWordsFromVariable(variableName);
+        for (const word of words) {
+          if (dictionary[word]) {
+            console.log("HEY");
+          }
+        }
+      },
+      TSEnumDeclaration(node) {
+        const variableName = node.id.name;
+        const dictionaryPath = options[0].dictionaryPath;
+        const dictionary = require(dictionaryPath);
+        const words = getWordsFromVariable(variableName);
+        for (const word of words) {
+          if (dictionary[word]) {
+            console.log("HEY");
+          }
+        }
+      },
+      TSEnumMember(node) {
+        const propertyName = node.id;
+        if (propertyName.type === "Identifier") {
+          const variableName = propertyName.name;
+          const dictionaryPath = options[0].dictionaryPath;
+          const dictionary = require(dictionaryPath);
+          const words = getWordsFromVariable(variableName);
+          for (const word of words) {
+            if (dictionary[word]) {
+              console.log("HEY");
+            }
+          }
+          return;
+        }
+        if (propertyName.type === "Literal") {
+          const variableName = propertyName.value?.toString();
+          const dictionaryPath = options[0].dictionaryPath;
+          const dictionary = require(dictionaryPath);
+          const words = getWordsFromVariable(variableName || "");
+          for (const word of words) {
+            if (dictionary[word]) {
+              console.log("HEY");
+            }
+          }
+          return;
+        }
+
+        // * if expression, this is computed props. computed props is out of range
+      },
     };
   },
 };
