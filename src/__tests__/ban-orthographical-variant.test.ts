@@ -110,6 +110,24 @@ describe("ban-orthographical-variant", () => {
             },
           ],
         },
+        {
+          name: "function declaration",
+          code: `
+        function music() {
+          return 1
+        }
+        `,
+          options: mockedOptions,
+          errors: [
+            {
+              messageId: "banOrthographicalVariant",
+              data: {
+                originWord: "Audio",
+                synomsysWord: "Music",
+              },
+            },
+          ],
+        },
       ],
     }
   );
