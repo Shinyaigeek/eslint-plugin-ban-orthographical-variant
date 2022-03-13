@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/Shinyaigeek/eslint-plugin-ban-orthographical-variant/issues"
   },
-  "homepage": "https://github.com/Shinyaigeek/eslint-plugin-ban-orthographical-variant#readme"
+  "homepage": "https://github.com/Shinyaigeek/eslint-plugin-ban-orthographical-variant#readme",
+  "devDependencies": {
+    "@typescript-eslint/types": "^5.14.0",
+    "@typescript-eslint/utils": "^5.14.0"
+  }
 }
