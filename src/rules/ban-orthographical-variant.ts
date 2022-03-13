@@ -4,7 +4,6 @@ import { getDictionaryPath } from "../lib/getDictionaryPath/mod";
 import { getVariableNameFromAssignmentPattern } from "../lib/getVariableNameFromAssignmentPattern/mod";
 import { getVariableNameFromBindingName } from "../lib/getVariableNameFromBindingName/mod";
 import { getVariableNameFromRestElement } from "../lib/getVariableNameFromRestElement/mod";
-import { getWordsFromVariable } from "../lib/getWordsFromVariable/mod";
 import { lintWithVariable } from "../lib/lintWithVariables/mod";
 
 type Options = [
