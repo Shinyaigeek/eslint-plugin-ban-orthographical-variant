@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Shinyaigeek/eslint-plugin-ban-orthographical-variant#readme",
   "devDependencies": {
     "@typescript-eslint/types": "^5.14.0",
-    "@typescript-eslint/utils": "^5.14.0"
+    "@typescript-eslint/utils": "^5.14.0",
+    "jest": "^27.5.1"
   }
 }
